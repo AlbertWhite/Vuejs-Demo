@@ -1,0 +1,31 @@
+<html>
+
+<head>
+</head>
+
+<body>
+
+  <div id="fnac">
+    {{foo}}
+    <button v-on:click="foo='aa'">Change text</button>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    var app = new Vue({
+      el: '#fnac',
+      data: {
+        foo: '123'
+      },
+      created: function () {
+        console.log(this.foo)
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<html>
+
+<head>
+</head>
+
+<body>
+  <div id="fnac">
+
+    <add-todo newValue="newValue"></add-todo>
+
+    <!--Need to use v-bind to inject data as props into a component -->
+    <todo-item v-for="todo in todos" v-bind:todo="todo" :key="todo.key">
+
+    </todo-item>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    //Inject data into a component: need to defind in props
+    Vue.component('add-todo', {
+      props: ['newValue'],
+      template: `<div>
+                    <input v-model="newValue" type="text"/>
+                    <button v-on:click="addItem()">Add</button>
+                </div>`
+    })
+
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: `
+                <div>
+                  <li key={{todo.key}}>{{todo.text}}</li>
+                  <button v-on:click="removeItem('key')">remove</button>
+                </div>
+                `
+    })
+
+    var app = new Vue({
+      el: '#fnac',
+      data: {
+        newValue: "",
+        todos: [
+          {
+            key: 1,
+            text: 'a'
+          }
+        ]
+      },
+      methods: {
+        removeItem: function (key) {
+          console.log('key', key)
+        },
+        addItem: function () {
+          console.log('add item')
+        }
+      }
+
+    });
+  </script>
+</body>
+
+</html>
