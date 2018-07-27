@@ -6,10 +6,11 @@
 <body>
   <div id="fnac">
 
-    <add-todo newValue="newValue"></add-todo>
+    <!--bind value of input to model | listen for the event in button-->
+    <add-todo v-model='newValue' v-on:add-value="addItem"></add-todo>
 
     <!--Need to use v-bind to inject data as props into a component -->
-    <todo-item v-for="todo in todos" v-bind:todo="todo" :key="todo.key">
+    <todo-item v-for="item in todos" v-bind:todo="item" :key="item.key">
 
     </todo-item>
 
@@ -18,11 +19,13 @@
   <script>
 
     //Inject data into a component: need to defind in props
+
+    //In order to use v-model: Bind the value attribute to a value prop, On input, emit its own custom input event with the new value
     Vue.component('add-todo', {
       props: ['newValue'],
       template: `<div>
-                    <input v-model="newValue" type="text"/>
-                    <button v-on:click="addItem()">Add</button>
+                    <input v-bind:value="newValue" v-on:input="$emit('input', $event.target.value)" type="text"/>
+                    <button v-on:click="$emit('add-value')">Add</button>
                 </div>`
     })
 
@@ -52,7 +55,7 @@
           console.log('key', key)
         },
         addItem: function () {
-          console.log('add item')
+          console.log('add item', this.newValue)
         }
       }
 

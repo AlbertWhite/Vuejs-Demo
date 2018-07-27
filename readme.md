@@ -27,6 +27,6 @@ The part after directive can access directly the attribute in data and methods.
 
 ### demo 03
 
-- Component like the component in react, need to defind props for the data injected. Emit like 'dispatch'
-
-how to pass value in component to parent?
+- pass prop to component: need to initial in the props in component intialization. pass parameter directly in component or use v-bind
+- pass event from child to parent: use emit and v-on the event name
+- use v-model in component (bind input in component with the model): v-bind and emit input in component intialization, need to define in props
