@@ -10,7 +10,7 @@
     <add-todo v-model='newValue' v-on:add-value="addItem"></add-todo>
 
     <!--Need to use v-bind to inject data as props into a component -->
-    <todo-item v-for="item in todos" v-bind:todo="item" :key="item.key">
+    <todo-item v-for="item in todos" v-bind:todo="item" :key="item.key" v-on:remove-item='removeItem'>
 
     </todo-item>
 
@@ -34,7 +34,7 @@
       template: `
                 <div>
                   <li key={{todo.key}}>{{todo.text}}</li>
-                  <button v-on:click="removeItem('key')">remove</button>
+                  <button v-on:click="$emit('remove-item',todo.key)">remove</button>
                 </div>
                 `
     })
@@ -52,10 +52,14 @@
       },
       methods: {
         removeItem: function (key) {
-          console.log('key', key)
+          this.todos = this.todos.filter(todo => { return todo.key != key })
         },
         addItem: function () {
-          console.log('add item', this.newValue)
+          this.todos.push({
+            key: this.todos.length + 1,
+            text: this.newValue
+          })
+
         }
       }
 
